@@ -32,7 +32,7 @@ struct EmojiArtDocumentView: View {
             ZStack {
                 Color.white
                 documentContents(in: geometry)
-                    .scaleEffect(zoom * gestureZoom)
+                    .scaleEffect(checkSelectedEmojis() ? zoom : zoom * gestureZoom)
                     .offset(pan + gesturePan)
             }
             .gesture(panGesture.simultaneously(with: zoomGesture))
@@ -52,13 +52,27 @@ struct EmojiArtDocumentView: View {
     @GestureState private var gestureZoom: CGFloat = 1
     @GestureState private var gesturePan: CGOffset = .zero
     
+    
+    private func checkSelectedEmojis() -> Bool {
+        !selectedEmojisId.isEmpty
+    }
+    
     private var zoomGesture: some Gesture {
         MagnificationGesture()
             .updating($gestureZoom) { inMotionPinchScale, gestureZoom, _ in
                 gestureZoom = inMotionPinchScale
             }
             .onEnded { endingPinchScale in
-                zoom *= endingPinchScale
+                if !checkSelectedEmojis() {
+                    zoom *= endingPinchScale
+                } else {
+                    for index in document.emojis.indices {
+                        if selectedEmojisId.contains(document.emojis[index].id) {
+                            let size = CGFloat(document.emojis[index].size) * endingPinchScale
+                            document.updateEmoji(id: document.emojis[index].id, size: Int(size))
+                        }
+                    }
+                }
             }
     }
     
@@ -87,12 +101,16 @@ struct EmojiArtDocumentView: View {
                 .font(emoji.font)
                 // show border if selected
                 .border(.red, width: isSelected(emoji.id) ? 1 : 0)
-                .scaleEffect(isSelected(emoji.id) ? zoom * gestureZoom : 1)
+                .scaleEffect(scaleSizeEmoji(emoji))
                 .position(emoji.position.in(geometry))
                 .onTapGesture {
                     handleEmojiTapping(emoji.id)
                 }
         }
+    }
+    
+    private func scaleSizeEmoji(_ emoji: Emoji) -> CGFloat {
+        isSelected(emoji.id) ? (CGFloat(emoji.size) / paletteEmojiSize) * gestureZoom : (CGFloat(emoji.size) / paletteEmojiSize)
     }
     
     private func isSelected(_ id: Emoji.ID) -> Bool {

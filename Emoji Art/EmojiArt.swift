@@ -18,6 +18,14 @@ struct EmojiArt {
         emojis.append(Emoji(string: emoji, position: position, size: size, id: uniqueEmojiId))
     }
     
+    mutating func updateSizeEmoji(id: Emoji.ID, size: Int) {
+        for index in emojis.indices {
+            if emojis[index].id == id {
+                emojis[index].size = size
+            }
+        }
+    }
+    
     struct Emoji: Identifiable {
         let string: String
         var position: Position

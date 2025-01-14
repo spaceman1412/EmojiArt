@@ -12,8 +12,8 @@ class EmojiArtDocument: ObservableObject {
     @Published private var emojiArt = EmojiArt()
     
     init() {
-        emojiArt.addEmoji("👌", at: .init(x: 100, y: 100), size: 200)
-        emojiArt.addEmoji("🦶", at: .init(x: -150, y: 100), size: 200)
+        emojiArt.addEmoji("👌", at: .init(x: 100, y: 100), size: 40)
+        emojiArt.addEmoji("🦶", at: .init(x: -150, y: 100), size: 40)
     }
     
     var emojis: [Emoji] {
@@ -24,7 +24,6 @@ class EmojiArtDocument: ObservableObject {
         emojiArt.background
     }
     
-    
     // MARK: - Intent(s)
     
     func setBackground(_ url: URL?) {
@@ -33,6 +32,10 @@ class EmojiArtDocument: ObservableObject {
     
     func addEmoji(_ emoji: String, at position: Emoji.Position, size: CGFloat) {
         emojiArt.addEmoji(emoji, at: position, size: Int(size))
+    }
+    
+    func updateEmoji(id: Emoji.ID, size: Int) {
+        emojiArt.updateSizeEmoji(id: id, size: size)
     }
 }
 
