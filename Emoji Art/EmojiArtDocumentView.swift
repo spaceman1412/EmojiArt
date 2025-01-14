@@ -26,6 +26,7 @@ struct EmojiArtDocumentView: View {
         .scrollIndicators(.hidden)
     }
     
+    
     var documentBody: some View {
         GeometryReader { geometry in
             ZStack {
@@ -38,7 +39,14 @@ struct EmojiArtDocumentView: View {
             .dropDestination(for: Sturldata.self) { sturldata,location in
                 return drop(sturldata, at: location, in: geometry)
             }
+            .onTapGesture {
+                deselectAllEmojis()
+            }
         }
+    }
+    
+    private func deselectAllEmojis() {
+        selectedEmojisId = .init()
     }
     
     @GestureState private var gestureZoom: CGFloat = 1
@@ -67,14 +75,35 @@ struct EmojiArtDocumentView: View {
     @State private var zoom: CGFloat = 1
     @State private var pan: CGOffset = .zero
     
+    @State private var selectedEmojisId = Set<Emoji.ID>()
+    
     @ViewBuilder
     private func documentContents(in geometry: GeometryProxy) -> some View {
         AsyncImage(url: document.background)
             .position(Emoji.Position.zero.in(geometry))
         ForEach(document.emojis) { emoji in
+            // Emoji view
             Text(emoji.string)
                 .font(emoji.font)
+                // show border if selected
+                .border(.red, width: isSelected(emoji.id) ? 1 : 0)
+                .scaleEffect(isSelected(emoji.id) ? zoom * gestureZoom : 1)
                 .position(emoji.position.in(geometry))
+                .onTapGesture {
+                    handleEmojiTapping(emoji.id)
+                }
+        }
+    }
+    
+    private func isSelected(_ id: Emoji.ID) -> Bool {
+        selectedEmojisId.contains(id)
+    }
+    
+    private func handleEmojiTapping(_ id: Emoji.ID) {
+        if selectedEmojisId.contains(id) {
+            selectedEmojisId.remove(id)
+        } else {
+            selectedEmojisId.insert(id)
         }
     }
     
