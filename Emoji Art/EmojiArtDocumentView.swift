@@ -33,9 +33,9 @@ struct EmojiArtDocumentView: View {
                 Color.white
                 documentContents(in: geometry)
                     .scaleEffect(checkSelectedEmojis() ? zoom : zoom * gestureZoom)
-                    .offset(pan + gesturePan)
+                    .offset(pan + gesturePanDocument )
             }
-            .gesture(panGesture.simultaneously(with: zoomGesture))
+            .gesture(panDocumentGesture.simultaneously(with: zoomGesture))
             .dropDestination(for: Sturldata.self) { sturldata,location in
                 return drop(sturldata, at: location, in: geometry)
             }
@@ -50,8 +50,9 @@ struct EmojiArtDocumentView: View {
     }
     
     @GestureState private var gestureZoom: CGFloat = 1
-    @GestureState private var gesturePan: CGOffset = .zero
-    
+    @GestureState private var gesturePanDocument: CGOffset = .zero
+    @GestureState private var gesturePanEmojis: CGOffset = .zero
+
     
     private func checkSelectedEmojis() -> Bool {
         !selectedEmojisId.isEmpty
@@ -66,8 +67,8 @@ struct EmojiArtDocumentView: View {
                 if !checkSelectedEmojis() {
                     zoom *= endingPinchScale
                 } else {
-                    for index in document.emojis.indices {
-                        if selectedEmojisId.contains(document.emojis[index].id) {
+                    for id in selectedEmojisId {
+                        if let index = document.emojis.firstIndex(where: {$0.id == id}) {
                             let size = CGFloat(document.emojis[index].size) * endingPinchScale
                             document.updateEmoji(id: document.emojis[index].id, size: Int(size))
                         }
@@ -76,9 +77,9 @@ struct EmojiArtDocumentView: View {
             }
     }
     
-    private var panGesture: some Gesture {
+    private var panDocumentGesture: some Gesture {
         DragGesture()
-            .updating($gesturePan) { value, gesturePan, _ in
+            .updating($gesturePanDocument) { value, gesturePan, _ in
                 gesturePan = value.translation
             }
             .onEnded { value in
@@ -90,6 +91,22 @@ struct EmojiArtDocumentView: View {
     @State private var pan: CGOffset = .zero
     
     @State private var selectedEmojisId = Set<Emoji.ID>()
+    
+    private var panEmojiGesture: some Gesture {
+        DragGesture()
+            .updating($gesturePanEmojis) { value, gesturePan, _ in
+                gesturePan = value.translation
+            }
+            .onEnded { value in
+                for id in selectedEmojisId {
+                    if let index = document.emojis.firstIndex(where: {$0.id == id}) {
+                        let x = CGFloat(document.emojis[index].position.x) + value.translation.width
+                        let y = CGFloat(document.emojis[index].position.y) - value.translation.height
+                        document.updatingPositionEmoji(id: id, position: Emoji.Position(x: Int(x), y: Int(y)))
+                    }
+                }
+            }
+    }
     
     @ViewBuilder
     private func documentContents(in geometry: GeometryProxy) -> some View {
@@ -103,6 +120,8 @@ struct EmojiArtDocumentView: View {
                 .border(.red, width: isSelected(emoji.id) ? 1 : 0)
                 .scaleEffect(scaleSizeEmoji(emoji))
                 .position(emoji.position.in(geometry))
+                .offset(isSelected(emoji.id) ? gesturePanEmojis : .zero)
+                .gesture(isSelected(emoji.id) ? panEmojiGesture : nil)
                 .onTapGesture {
                     handleEmojiTapping(emoji.id)
                 }

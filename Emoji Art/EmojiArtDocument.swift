@@ -37,6 +37,10 @@ class EmojiArtDocument: ObservableObject {
     func updateEmoji(id: Emoji.ID, size: Int) {
         emojiArt.updateSizeEmoji(id: id, size: size)
     }
+    
+    func updatingPositionEmoji(id: Emoji.ID, position: Emoji.Position) {
+        emojiArt.updatingPositionEmoji(id: id, position: position)
+    }
 }
 
 extension EmojiArt.Emoji {

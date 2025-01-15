@@ -19,10 +19,14 @@ struct EmojiArt {
     }
     
     mutating func updateSizeEmoji(id: Emoji.ID, size: Int) {
-        for index in emojis.indices {
-            if emojis[index].id == id {
-                emojis[index].size = size
-            }
+        if let index = emojis.firstIndex (where: { $0.id == id }) {
+            emojis[index].size = size
+        }
+    }
+    
+    mutating func updatingPositionEmoji(id: Emoji.ID, position: Emoji.Position) {
+        if let index = emojis.firstIndex (where: { $0.id == id }) {
+            emojis[index].position = position
         }
     }
     
