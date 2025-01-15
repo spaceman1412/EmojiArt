@@ -41,6 +41,10 @@ class EmojiArtDocument: ObservableObject {
     func updatingPositionEmoji(id: Emoji.ID, position: Emoji.Position) {
         emojiArt.updatingPositionEmoji(id: id, position: position)
     }
+    
+    func removeEmoji(id: Emoji.ID) {
+        emojiArt.removeEmoji(id: id)
+    }
 }
 
 extension EmojiArt.Emoji {

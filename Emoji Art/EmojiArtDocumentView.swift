@@ -118,6 +118,18 @@ struct EmojiArtDocumentView: View {
                 .font(emoji.font)
                 // show border if selected
                 .border(.red, width: isSelected(emoji.id) ? 1 : 0)
+                .overlay(isSelected(emoji.id) ?
+                         GeometryReader { geometry in
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.red)
+                        .font(.system(size: 20))
+                        .offset(x: -10, y: -10)
+                        .onTapGesture {
+                            document.removeEmoji(id: emoji.id)
+                        }
+
+                }
+                         : nil)
                 .scaleEffect(scaleSizeEmoji(emoji))
                 .position(emoji.position.in(geometry))
                 .offset(isSelected(emoji.id) ? gesturePanEmojis : .zero)
