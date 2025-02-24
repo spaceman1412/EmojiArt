@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5C4497E52D27904B00C59813 /* Sturldata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4497E42D27904B00C59813 /* Sturldata.swift */; };
+		5C56B3FD2D647BD100F85D10 /* PaletteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C56B3FC2D647BD100F85D10 /* PaletteList.swift */; };
+		5C5C07712D65CC3D005CA664 /* PaletteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C07702D65CC3D005CA664 /* PaletteManager.swift */; };
+		5C6AC2A62D633AEC0083236D /* PaletteEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6AC2A52D633AEC0083236D /* PaletteEditor.swift */; };
 		5C7F4A072D34FF4300CFE235 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F4A062D34FF4300CFE235 /* Palette.swift */; };
 		5C7F4A092D35007900CFE235 /* PaletteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F4A082D35007900CFE235 /* PaletteStore.swift */; };
 		5C7F4A0D2D35032A00CFE235 /* PaletteChoser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F4A0C2D35032A00CFE235 /* PaletteChoser.swift */; };
@@ -23,6 +26,9 @@
 
 /* Begin PBXFileReference section */
 		5C4497E42D27904B00C59813 /* Sturldata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sturldata.swift; sourceTree = "<group>"; };
+		5C56B3FC2D647BD100F85D10 /* PaletteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteList.swift; sourceTree = "<group>"; };
+		5C5C07702D65CC3D005CA664 /* PaletteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteManager.swift; sourceTree = "<group>"; };
+		5C6AC2A52D633AEC0083236D /* PaletteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteEditor.swift; sourceTree = "<group>"; };
 		5C7F4A062D34FF4300CFE235 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		5C7F4A082D35007900CFE235 /* PaletteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStore.swift; sourceTree = "<group>"; };
 		5C7F4A0C2D35032A00CFE235 /* PaletteChoser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChoser.swift; sourceTree = "<group>"; };
@@ -79,6 +85,9 @@
 				5C7F4A062D34FF4300CFE235 /* Palette.swift */,
 				5C7F4A082D35007900CFE235 /* PaletteStore.swift */,
 				5C7F4A0C2D35032A00CFE235 /* PaletteChoser.swift */,
+				5C56B3FC2D647BD100F85D10 /* PaletteList.swift */,
+				5C6AC2A52D633AEC0083236D /* PaletteEditor.swift */,
+				5C5C07702D65CC3D005CA664 /* PaletteManager.swift */,
 			);
 			path = "Emoji Art";
 			sourceTree = "<group>";
@@ -164,9 +173,12 @@
 				5C4497E52D27904B00C59813 /* Sturldata.swift in Sources */,
 				5C9D55DA2D2681EC00E7A27B /* EmojiArtDocumentView.swift in Sources */,
 				5C9D55DE2D2683D000E7A27B /* Extensions.swift in Sources */,
+				5C56B3FD2D647BD100F85D10 /* PaletteList.swift in Sources */,
 				5C9D55D62D26527400E7A27B /* EmojiArt.swift in Sources */,
 				5C7F4A092D35007900CFE235 /* PaletteStore.swift in Sources */,
+				5C5C07712D65CC3D005CA664 /* PaletteManager.swift in Sources */,
 				5C9D55CA2D2651D400E7A27B /* ContentView.swift in Sources */,
+				5C6AC2A62D633AEC0083236D /* PaletteEditor.swift in Sources */,
 				5C9D55C82D2651D400E7A27B /* Emoji_ArtApp.swift in Sources */,
 				5C7F4A0D2D35032A00CFE235 /* PaletteChoser.swift in Sources */,
 				5C9D55D82D26538200E7A27B /* EmojiArtDocument.swift in Sources */,
