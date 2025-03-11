@@ -59,7 +59,6 @@ class PaletteStore: ObservableObject,Identifiable {
                 palettes = [Palette(name: "Warning", emojis: "🤷‍♂️")]
             }
         }
-        
     }
     
     @Published private var _cursorIndex = 0
@@ -80,7 +79,6 @@ class PaletteStore: ObservableObject,Identifiable {
         
         return index
     }
-    
     
     // MARK: - Adding Palettes
     

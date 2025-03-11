@@ -18,7 +18,6 @@ class EmojiArtDocument: ObservableObject {
     private let autosaveURL: URL = URL.documentsDirectory.appendingPathComponent("Autosaved.EmojiArt")
     
     
-    
     private func autosave() {
         save(to: autosaveURL)
         print("autosaved to \(autosaveURL)")
